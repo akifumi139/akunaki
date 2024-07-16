@@ -12,42 +12,60 @@
 
 <body class="flex h-screen">
   <div class="w-96">
-    <form class="mx-6 flex flex-col justify-center p-2">
-      <img class="mx-auto my-2 w-36" src="{{ asset('akunaki.svg') }}" alt="Icon">
-      <div class="mb-4">
-        <label class="" for="ログインID">
-          <input
-            class="focus:shadow-outline mt-1 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:bg-primary-100 focus:outline-none"
-            id="username" type="text" placeholder="ログインID">
-        </label>
-      </div>
-      <div class="mb-1">
-        <label class="" for="パスワード">
-          <input
-            class="focus:shadow-outline mb-3 mt-1 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:bg-primary-100 focus:outline-none"
-            id="password" type="password" placeholder="パスワード">
-        </label>
-      </div>
-      <div class="flex items-center justify-between">
-        <button
-          class="focus:shadow-outline mx-auto rounded-lg bg-primary-600 px-4 py-1 text-lg font-bold tracking-widest text-white hover:bg-blue-600 focus:outline-none"
-          type="button">
-          GO!!
-        </button>
-      </div>
-    </form>
+    <img class="mx-auto my-2 w-36" src="{{ asset('akunaki.svg') }}" alt="Icon">
+    @guest
+      <form class="mx-6 flex flex-col justify-center p-2" method="POST" action="{{ route('auth.login') }}">
+        @csrf
+        <div class="mb-4">
+          <label class="" for="ログインID">
+            <input
+              class="focus:shadow-outline mt-1 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:bg-primary-100 focus:outline-none"
+              id="name" name="name" type="text" placeholder="ログインID">
+          </label>
+        </div>
+        <div class="mb-1">
+          <label class="" for="パスワード">
+            <input
+              class="focus:shadow-outline mb-3 mt-1 w-full appearance-none rounded border px-3 py-2 leading-tight shadow focus:bg-primary-100 focus:outline-none"
+              id="password" name="password" type="password" placeholder="パスワード">
+          </label>
+        </div>
+        <div class="flex items-center justify-between">
+          <button
+            class="focus:shadow-outline mx-auto rounded-lg bg-primary-600 px-4 py-1 text-lg font-bold tracking-widest text-white hover:bg-blue-600 focus:outline-none"
+            type="submit">
+            GO!!
+          </button>
+        </div>
+      </form>
+    @else
+      <form class="mx-6 flex flex-col justify-center p-2" method="POST" action="{{ route('auth.logout') }}">
+        @csrf
+        <div class="flex items-center justify-between">
+          <button
+            class="focus:shadow-outline text-whitefocus:outline-none mx-auto rounded-lg bg-tertiary px-4 py-1 text-lg font-bold tracking-widest text-white"
+            type="submit">
+            Bye!!
+          </button>
+        </div>
+      </form>
+    @endguest
+
   </div>
   <div class="min-h-screen w-full overflow-auto bg-primary-300 p-3">
     <div class="max-w-[680px]">
-      <form class="min-h-32 mx-12 mb-12" action="{{ route('card.store') }}" method="POST">
-        @csrf
-        <textarea
-          class="mx-auto h-40 w-full rounded-b-lg rounded-tl-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          name="comment" placeholder="何か書け"></textarea>
-        <div class="flex justify-end">
-          <button class="rounded-xl bg-primary-600 px-4 py-1 text-white">送信する</button>
-        </div>
-      </form>
+      @auth
+        <form class="min-h-32 mx-12 mb-12" action="{{ route('card.store') }}" method="POST">
+          @csrf
+          <textarea
+            class="mx-auto h-40 w-full rounded-b-lg rounded-tl-lg border border-gray-300 p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            name="comment" placeholder="何か書け"></textarea>
+          <div class="flex justify-end">
+            <button class="rounded-xl bg-primary-600 px-4 py-1 text-white">送信する</button>
+          </div>
+        </form>
+      @endauth
+
       <hr class="mt-10 border-2 border-primary-600">
       <div class="md:max-w-72 mx-auto -mb-3 -mt-6 flex h-10 w-1/2 justify-between md:-mt-8 md:h-14">
         <div
