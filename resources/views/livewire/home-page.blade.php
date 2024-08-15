@@ -43,20 +43,20 @@
         'rotate-40' => $this->iconRotateNo == 2,
         'rotate-90' => $this->iconRotateNo >= 3 || Auth::check(),
     ])>
-    <ul class="space-y-4">
+    <ul class="space-y-2">
       <li>
-        <a class="flex items-center rounded bg-primary-600 p-2 text-white hover:underline" href="#">
+        <a class="flex items-center rounded bg-primary-600 p-2 text-white" href="#">
           <i class="fas fa-home mr-2"></i> Home
         </a>
       </li>
       <li>
-        <a class="flex items-center text-primary-600 hover:underline" href="#">
-          <i class="fas fa-thumbtack ml-3 mr-3"></i> Pins
+        <a class="flex items-center rounded p-2 text-primary-600 hover:bg-primary-100" href="#">
+          <i class="fas fa-thumbtack ml-1 mr-3"></i> Pins
         </a>
       </li>
       <li>
-        <a class="flex items-center text-primary-600 hover:underline" href="#">
-          <i class="fa-solid fa-train ml-3 mr-3"></i> Rails
+        <a class="flex items-center rounded p-2 text-primary-600 hover:bg-primary-100" href="#">
+          <i class="fa-solid fa-train ml-1 mr-3"></i> Rails
         </a>
       </li>
     </ul>
