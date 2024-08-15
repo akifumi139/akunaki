@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\PostImage;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -17,31 +18,58 @@ class HomePage extends Component
 
     protected $listeners = ['load-more' => 'loadMore'];
 
+    public bool $isLoginModal = false;
+    public int $iconRotateNo = 0;
+    public string $name = '';
+    public string $password = '';
+
     public $perPage = 10;
 
     public string $comment = '';
     public $image;
 
-    public $isLoginModal = false;
-    public int $iconRotateNo = 0;
 
     public function loadMore(): void
     {
         $this->perPage += 10;
     }
 
-    public function boot()
-    {
-        $user = User::find(1);
-        Auth::login($user);
-        // Auth::logout();
-    }
-
     public function clickIcon()
     {
+        if (Auth::check()) {
+            Auth::logout();
+            return;
+        }
+
         $this->iconRotateNo  = $this->iconRotateNo + 1;
+        if ($this->iconRotateNo === 3) {
+            $this->isLoginModal = true;
+        }
     }
 
+    public function closeLoginModal()
+    {
+        $this->isLoginModal = false;
+        $this->iconRotateNo = 0;
+        $this->reset(['name', 'password']);
+    }
+
+    public function login()
+    {
+        $this->validate([
+            'name' => 'required|string',
+            'password' => 'required',
+        ]);
+
+        if (!Auth::attempt(['name' => $this->name, 'password' => $this->password])) {
+            throw ValidationException::withMessages([
+                'name' => ['ユーザー名またはパスワードが無効です。'],
+            ]);
+        }
+
+        session()->flash('message', 'ログイン成功');
+        $this->closeLoginModal();
+    }
 
     public function render()
     {
