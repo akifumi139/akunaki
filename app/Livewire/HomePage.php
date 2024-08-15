@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\PostImage;
+use App\Models\PostPin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -32,6 +33,21 @@ class HomePage extends Component
     public string $comment = '';
     public $image;
 
+    public function boot()
+    {
+        PostPin::where('status', false)->delete();
+    }
+
+    public function render()
+    {
+        $posts = Post::with('images')
+            ->orderByDesc('id')
+            ->paginate($this->perPage);
+
+        return view('livewire.home-page', [
+            'posts' => $posts,
+        ]);
+    }
 
     public function loadMore(): void
     {
@@ -73,17 +89,6 @@ class HomePage extends Component
 
         session()->flash('message', 'ログイン成功');
         $this->closeLoginModal();
-    }
-
-    public function render()
-    {
-        $posts = Post::with('images')
-            ->orderByDesc('id')
-            ->paginate($this->perPage);
-
-        return view('livewire.home-page', [
-            'posts' => $posts,
-        ]);
     }
 
     public function add(): void
@@ -143,10 +148,14 @@ class HomePage extends Component
         $pin = Post::find($id)->pin();
 
         if ($pin->first()) {
-            $pin->delete();
+            $pin->where('user_id', Auth::id())->delete();
             return;
         }
 
-        $pin->create();
+        $pin->create([
+            'user_id' => Auth::id(),
+            'status' => true,
+            'updated_at' => now(),
+        ]);
     }
 }
