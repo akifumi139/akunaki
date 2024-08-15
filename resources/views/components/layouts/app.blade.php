@@ -9,7 +9,7 @@
   <link type="image/svg+xml" href="/akunaki.svg" rel="icon" sizes="any">
 </head>
 
-<body class="flex h-screen bg-primary-100">
+<body class="h-screen bg-primary-100">
   {{ $slot }}
 </body>
 

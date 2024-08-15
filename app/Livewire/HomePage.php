@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Post;
 use App\Models\PostImage;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
@@ -15,6 +14,8 @@ class HomePage extends Component
 {
     use WithPagination;
     use WithFileUploads;
+
+    public string $page = 'Home';
 
     protected $listeners = ['load-more' => 'loadMore'];
 
