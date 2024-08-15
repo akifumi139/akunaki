@@ -22,7 +22,7 @@
       </a>
     </li>
     <li class="w-1/3">
-      <a href="#" @class([
+      <a href="{{ route('rails') }}" @class([
           'flex items-center rounded  px-2 py-1',
           'bg-primary-600 text-white' => $this->page === 'Rails',
           'border-primary-600 text-primary-600' =>
@@ -59,7 +59,7 @@
       </a>
     </li>
     <li>
-      <a href="#" @class([
+      <a href="{{ route('rails') }}" @class([
           'flex items-center rounded p-2',
           'bg-primary-600 text-white' => $this->page === 'Rails',
           'bg-white  text-primary-600 hover:bg-primary-100' =>
