@@ -1,5 +1,5 @@
 <header class="fixed left-0 right-0 top-0 z-30 flex h-20 w-full items-center bg-primary-100 md:hidden">
-  @include('components.layouts.login-modal')
+  @livewire('AuthModal')
   <ul class="mx-2 mt-4 flex w-full items-center space-x-2">
     <li class="w-1/3">
       <a href="{{ route('home') }}" @class([
@@ -35,7 +35,7 @@
 </header>
 
 <nav class="hidden h-72 w-40 rounded bg-white p-4 shadow-sm md:block">
-  @include('components.layouts.login-modal')
+  @livewire('AuthModal')
   <ul class="space-y-2">
     <li>
       <a class="bg-primary-600 text-white" href="#">

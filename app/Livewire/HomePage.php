@@ -13,6 +13,7 @@ use Livewire\WithPagination;
 use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Encoders\WebpEncoder;
+use Livewire\Attributes\On;
 
 class HomePage extends Component
 {
@@ -22,11 +23,6 @@ class HomePage extends Component
     public string $page = 'Home';
 
     protected $listeners = ['load-more' => 'loadMore'];
-
-    public bool $isLoginModal = false;
-    public int $iconRotateNo = 0;
-    public string $name = '';
-    public string $password = '';
 
     public $perPage = 10;
 
@@ -38,6 +34,7 @@ class HomePage extends Component
         PostPin::where('status', false)->delete();
     }
 
+    #[On('reload-list')]
     public function render()
     {
         $posts = Post::with('images')
@@ -52,43 +49,6 @@ class HomePage extends Component
     public function loadMore(): void
     {
         $this->perPage += 10;
-    }
-
-    public function clickIcon()
-    {
-        if (Auth::check()) {
-            Auth::logout();
-            return;
-        }
-
-        $this->iconRotateNo  = $this->iconRotateNo + 1;
-        if ($this->iconRotateNo === 3) {
-            $this->isLoginModal = true;
-        }
-    }
-
-    public function closeLoginModal()
-    {
-        $this->isLoginModal = false;
-        $this->iconRotateNo = 0;
-        $this->reset(['name', 'password']);
-    }
-
-    public function login()
-    {
-        $this->validate([
-            'name' => 'required|string',
-            'password' => 'required',
-        ]);
-
-        if (!Auth::attempt(['name' => $this->name, 'password' => $this->password])) {
-            throw ValidationException::withMessages([
-                'name' => ['ユーザー名またはパスワードが無効です。'],
-            ]);
-        }
-
-        session()->flash('message', 'ログイン成功');
-        $this->closeLoginModal();
     }
 
     public function add(): void
