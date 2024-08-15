@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\PostImage;
 use App\Models\PostPin;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
@@ -54,8 +53,18 @@ class HomePage extends Component
     public function add(): void
     {
         $this->validate([
-            'image' => 'nullable|image|max:1024',
-            'comment' => 'required|string|max:255',
+            'image' => [
+                'required_without:comment',
+                'nullable',
+                'image',
+                'max:1024',
+            ],
+            'comment' => [
+                'required_without:image',
+                'nullable',
+                'string',
+                'max:255',
+            ],
         ]);
 
         $post =  Post::create([
