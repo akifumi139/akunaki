@@ -2,7 +2,7 @@
   @include('components.layouts.login-modal')
   <ul class="mx-2 mt-4 flex w-full items-center space-x-2">
     <li class="w-1/3">
-      <a href="#" @class([
+      <a href="{{ route('home') }}" @class([
           'flex items-center rounded  px-2 py-1',
           'bg-primary-600 text-white' => $this->page === 'Home',
           'border-primary-600 text-primary-600' =>
@@ -12,7 +12,7 @@
       </a>
     </li>
     <li class="w-1/3">
-      <a href="#" @class([
+      <a href="{{ route('pins') }}" @class([
           'flex items-center rounded  px-2 py-1',
           'bg-primary-600 text-white' => $this->page === 'Pins',
           'border-primary-600 text-primary-600' =>
@@ -39,7 +39,7 @@
   <ul class="space-y-2">
     <li>
       <a class="bg-primary-600 text-white" href="#">
-        <a href="#" @class([
+        <a href="{{ route('home') }}" @class([
             'flex items-center rounded p-2',
             'bg-primary-600 text-white' => $this->page === 'Home',
             'bg-white  text-primary-600 hover:bg-primary-100' =>
@@ -49,7 +49,7 @@
         </a>
     </li>
     <li>
-      <a href="#" @class([
+      <a href="{{ route('pins') }}" @class([
           'flex items-center rounded p-2',
           'bg-primary-600 text-white' => $this->page === 'Pins',
           'bg-white  text-primary-600 hover:bg-primary-100' =>
