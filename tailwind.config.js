@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      rotate: {
+        '16': '16deg',
+        '40': '40deg',
+        '90': '90deg',
+      },
       colors: {
         'primary': {
           '100': '#B3DBD6',

@@ -1,8 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CardController;
-use App\Http\Controllers\TopController;
+use App\Livewire\HomePage;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(AuthController::class)
@@ -13,12 +12,4 @@ Route::controller(AuthController::class)
         Route::post('logout', 'logout')->name('logout');
     });
 
-Route::get('/', TopController::class)->name('top');
-
-Route::controller(CardController::class)
-    ->middleware('auth')
-    ->prefix('card')
-    ->name('card.')
-    ->group(function () {
-        Route::post('store', 'store')->name('store');
-    });
+Route::get('/', HomePage::class)->name('home');

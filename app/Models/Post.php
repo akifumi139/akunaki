@@ -18,4 +18,19 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function images()
+    {
+        return $this->hasMany(PostImage::class);
+    }
+
+    public function getImagePathAttribute()
+    {
+        return $this->images->first()?->path;
+    }
+
+    public function pin()
+    {
+        return $this->hasOne(PostPin::class);
+    }
 }
