@@ -11,3 +11,19 @@ GET http://localhost/api/posts/pins?page=1
 Content-Type: application/json
 Accept: application/json
 Authorization: {{token}}
+
+###
+POST http://localhost/api/posts/create
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: {{token}}
+
+--boundary
+Content-Disposition: form-data; name="comment"
+
+APIから送信
+--boundary
+Content-Disposition: form-data; name="image"; filename="akunaki.png"
+Content-Type: image/png
+
+< public/akunaki.png
+--boundary---

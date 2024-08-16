@@ -10,4 +10,6 @@ Route::controller(PostController::class)
     ->group(function () {
         Route::get('home', 'home')->name('home');
         Route::get('pins', 'pins')->name('pins');
+
+        Route::post('create', 'create')->name('create');
     });
