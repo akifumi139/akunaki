@@ -1,6 +1,12 @@
 @token = Bearer FRsfes4SgGU9Yr40J9MH4nXrRiv0inaTACQcuoyPf9d51090
 
 ###
+GET http://localhost/api/authorization
+Content-Type: application/json
+Accept: application/json
+Authorization: {{token}}
+
+###
 GET http://localhost/api/posts/home?page=1
 Content-Type: application/json
 Accept: application/json
