@@ -54,7 +54,7 @@ class PostController extends Controller
                 'required_without:comment',
                 'nullable',
                 'image',
-                'max:1024',
+                // 'max:1024',
             ],
             'comment' => [
                 'required_without:image',
