@@ -112,4 +112,29 @@ class PostController extends Controller
             'post_id' => $post->id,
         ]);
     }
+
+    public function delete(int $id)
+    {
+        $resultCount = Post::destroy($id);
+
+        if ($resultCount == 0) {
+            return
+                response()
+                ->json(
+                    ['message' => '該当するデータが存在しません'],
+                    404,
+                    [],
+                    JSON_UNESCAPED_UNICODE
+                );
+        }
+
+        return
+            response()
+            ->json(
+                ["Success" => $resultCount],
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
+    }
 }

@@ -12,4 +12,5 @@ Route::controller(PostController::class)
         Route::get('pins', 'pins')->name('pins');
 
         Route::post('create', 'create')->name('create');
+        Route::delete('delete/{id}', 'delete')->name('delete');
     });

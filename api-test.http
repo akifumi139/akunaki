@@ -27,3 +27,11 @@ Content-Type: image/png
 
 < public/akunaki.png
 --boundary---
+
+
+###
+@id = 147
+DELETE  http://localhost/api/posts/delete/{{ id }}
+Content-Type: application/json
+Accept: application/json
+Authorization: {{token}}
