@@ -14,7 +14,7 @@ class PostController extends Controller
 {
     public function home()
     {
-        $posts = Post::with('images')
+        $posts = Post::with(['images', 'pin'])
             ->orderByDesc('id')
             ->paginate(10);
 
@@ -132,6 +132,72 @@ class PostController extends Controller
             response()
             ->json(
                 ["Success" => $resultCount],
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
+    }
+
+    public function pin(int $id)
+    {
+        $post = Post::find($id);
+
+        if (is_null($post)) {
+            return
+                response()
+                ->json(
+                    ['message' => '該当するデータが存在しません'],
+                    404,
+                    [],
+                    JSON_UNESCAPED_UNICODE
+                );
+        }
+
+        $pin = $post->pin();
+        if (!$pin->exists()) {
+            $pin->create([
+                'user_id' => Auth::id(),
+                'status' => true,
+                'updated_at' => now(),
+            ]);
+        }
+
+        return
+            response()
+            ->json(
+                ["status" => 'ピン止め'],
+                200,
+                [],
+                JSON_UNESCAPED_UNICODE
+            );
+    }
+
+    public function unpin(int $id)
+    {
+        $post = Post::find($id);
+
+        if (is_null($post)) {
+            return
+                response()
+                ->json(
+                    ['message' => '該当するデータが存在しません'],
+                    404,
+                    [],
+                    JSON_UNESCAPED_UNICODE
+                );
+        }
+
+        $pin = $post->pin();
+        if ($pin->exists()) {
+            $pin
+                ->where('user_id', Auth::id())
+                ->delete();
+        }
+
+        return
+            response()
+            ->json(
+                ["status" => '解除'],
                 200,
                 [],
                 JSON_UNESCAPED_UNICODE

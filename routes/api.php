@@ -14,3 +14,12 @@ Route::controller(PostController::class)
         Route::post('create', 'create')->name('create');
         Route::delete('delete/{id}', 'delete')->name('delete');
     });
+
+Route::controller(PostController::class)
+    ->middleware('auth:sanctum')
+    ->prefix('pins')
+    ->name('pins.')
+    ->group(function () {
+        Route::patch('pin/{id}', 'pin')->name('pin');
+        Route::patch('unpin/{id}', 'unpin')->name('unpin');
+    });

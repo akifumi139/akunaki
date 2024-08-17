@@ -35,3 +35,16 @@ DELETE  http://localhost/api/posts/delete/{{ id }}
 Content-Type: application/json
 Accept: application/json
 Authorization: {{token}}
+
+###
+@pinId =152
+PATCH   http://localhost/api/pins/pin/{{ pinId }}
+Content-Type: application/json
+Accept: application/json
+Authorization: {{token}}
+
+###
+PATCH   http://localhost/api/pins/unpin/{{ pinId }}
+Content-Type: application/json
+Accept: application/json
+Authorization: {{token}}
