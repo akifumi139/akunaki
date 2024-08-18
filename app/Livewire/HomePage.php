@@ -6,11 +6,11 @@ use App\Models\Post;
 use App\Models\PostImage;
 use App\Models\PostPin;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Drivers\Imagick\Driver;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Intervention\Image\ImageManager;
-use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\Encoders\WebpEncoder;
 use Livewire\Attributes\On;
 
@@ -90,12 +90,10 @@ class HomePage extends Component
         $manager = new ImageManager(Driver::class);
         $image = $manager->read($accessPath);
 
-
         $image->scaleDown(width: 2000);
         $image = $image->encode(new WebpEncoder(quality: 100));
 
-        $pathInfo = pathinfo($tmpImagePath);
-        $imagePath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.webp';
+        $imagePath = str_replace(['.jpg', '.jpeg', '.png', '.svg'], '.webp', $tmpImagePath);
 
         $savePath =  storage_path('app/public/' . $imagePath);
         $image->save($savePath);
