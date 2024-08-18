@@ -34,7 +34,7 @@
   </ul>
 </header>
 
-<nav class="hidden h-72 w-40 rounded bg-white p-4 shadow-sm md:block">
+<nav class="hidden h-80 w-40 rounded bg-white p-4 shadow-sm md:block">
   @livewire('AuthModal')
   <ul class="space-y-2">
     <li>
@@ -68,5 +68,19 @@
         <i class="fa-solid fa-train ml-1 mr-3"></i> Rails
       </a>
     </li>
+    @auth
+      <li>
+        <a href="{{ route('setting') }}" @class([
+            'flex items-center rounded p-2',
+            'bg-primary-600 text-white' => $this->page === 'Setting',
+            'bg-white  text-primary-600 hover:bg-primary-100' =>
+                $this->page === 'Home' ||
+                $this->page === 'Pins' ||
+                $this->page === 'Rails',
+        ])>
+          <i class="fa-solid fa-gear ml-1 mr-3"></i> Setting
+        </a>
+      </li>
+    @endauth
   </ul>
 </nav>

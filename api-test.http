@@ -1,27 +1,27 @@
-@token = Bearer FRsfes4SgGU9Yr40J9MH4nXrRiv0inaTACQcuoyPf9d51090
+@token = 4|PKSOsHNb470LfOn3H0nDwRytRlv1V9Sr3ZZO5knje29629de
 
 ###
 GET http://localhost/api/authorization
 Content-Type: application/json
 Accept: application/json
-Authorization: {{token}}
+Authorization: Bearer {{token}}
 
 ###
 GET http://localhost/api/posts/home?page=1
 Content-Type: application/json
 Accept: application/json
-Authorization: {{token}}
+Authorization: Bearer {{token}}
 
 ###
 GET http://localhost/api/posts/pins?page=1
 Content-Type: application/json
 Accept: application/json
-Authorization: {{token}}
+Authorization: Bearer {{token}}
 
 ###
 POST http://localhost/api/posts/create
 Content-Type: multipart/form-data; boundary=boundary
-Authorization: {{token}}
+Authorization: Bearer {{token}}
 
 --boundary
 Content-Disposition: form-data; name="comment"
@@ -40,17 +40,17 @@ Content-Type: image/png
 DELETE  http://localhost/api/posts/delete/{{ id }}
 Content-Type: application/json
 Accept: application/json
-Authorization: {{token}}
+Authorization: Bearer {{token}}
 
 ###
 @pinId =152
 PATCH   http://localhost/api/pins/pin/{{ pinId }}
 Content-Type: application/json
 Accept: application/json
-Authorization: {{token}}
+Authorization: Bearer {{token}}
 
 ###
 PATCH   http://localhost/api/pins/unpin/{{ pinId }}
 Content-Type: application/json
 Accept: application/json
-Authorization: {{token}}
+Authorization: Bearer {{token}}

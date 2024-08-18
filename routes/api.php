@@ -8,7 +8,10 @@ Route::get('authorization', function (Request $request) {
     return
         response()
         ->json(
-            $request->user(),
+            [
+                'status' => $request->user() ? 'OK' : 'ERROR',
+                'user' => $request->user()
+            ],
             200,
             [],
             JSON_UNESCAPED_UNICODE
